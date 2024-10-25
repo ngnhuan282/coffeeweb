@@ -719,6 +719,9 @@ a:focus {
   border: none;
 }
 
+.font{
+  font-family: Arial, cursive;
+}
 .book_section .form_container button:hover {
   background-color: #e69c00;
 }
@@ -1005,3 +1008,8 @@ a:focus {
   color: inherit;
 }
 /*# sourceMappingURL=style.css.map */
+p{
+  color: #000000;
+  font-size: 20px;
+  font-family: 'Dancing Script', cursive;
+}
