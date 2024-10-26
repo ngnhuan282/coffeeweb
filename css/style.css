@@ -1,6 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Open+Sans:wght@400;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap%22");
+
 body {
-  font-family: "Open Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   color: #0c0c0c;
   background-color: #ffffff;
   overflow-x: hidden;
@@ -148,7 +150,7 @@ a:focus {
 }
 
 .navbar-brand {
-  font-family: 'Dancing Script', cursive;
+  font-family: 'Poppins', cursive;
 }
 
 .navbar-brand span {
@@ -719,9 +721,6 @@ a:focus {
   border: none;
 }
 
-.font{
-  font-family: Arial, cursive;
-}
 .book_section .form_container button:hover {
   background-color: #e69c00;
 }
@@ -1008,8 +1007,3 @@ a:focus {
   color: inherit;
 }
 /*# sourceMappingURL=style.css.map */
-p{
-  color: #000000;
-  font-size: 20px;
-  font-family: 'Dancing Script', cursive;
-}
