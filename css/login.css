@@ -3,6 +3,7 @@
     padding: 0;
     box-sizing: border-box;
     font-family: "Poppins", sans-serif;
+
   }
 body{
     display: flex;
@@ -12,7 +13,53 @@ body{
     background: url('../images/background-login.jpg') no-repeat;
     background-size: cover;
     background-position: center;
+    position: relative;
   }
+.header{
+  display: flex;
+  position: absolute;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  top: 20px;
+  left: 20px;
+  right: 20px;
+  margin-bottom: 20px;
+}
+.navigation a{
+  padding: 5px 2px 5px 2px;
+  color: #fff;
+  border-radius: 4px solid blue ;
+  text-decoration: none;
+}
+.navigation{
+  display: flex;
+  justify-content: space-between;
+}
+.button +.button{
+  margin-left: 20px;
+}
+.button{
+  display: flex;
+  width: 100px;
+  padding: 8px 16px;
+  /* background-color: rgb(141, 231, 23); */
+  border-radius: 30px;
+  justify-content: center;
+  align-items: center;
+  font-size: 13px;
+  cursor: pointer;
+  transition: 0.5s;
+}
+.button:hover{
+  background-color: #bbd816;
+}
+
+.header .logo{
+  color: #fff;
+  font-size: 32px;
+  font-weight: bold;
+}
 .wrapper{
     width: 420px;
     background: transparent;
@@ -21,6 +68,7 @@ body{
     color: #fff;
     border-radius: 12px;
     padding: 30px 40px;
+
   }
 .wrapper h1{
     font-size: 36px;
