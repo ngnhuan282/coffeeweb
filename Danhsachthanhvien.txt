@@ -1,6 +1,6 @@
 Đề tài đăng ký: Web bán coffe
 Danh sách thành viên:
-1. Võ Ngọc Nguyên - 3123410238
-2. Nguyễn Văn Nhuận - 3123410253
-3. Huỳnh Anh Nhựt - 3123410256
-4. Nguyễn Tiến Minh - 3123410221
+1. Võ Ngọc Nguyên - 3123410238 username='svnguyen' pass='svnguyen123'
+2. Nguyễn Văn Nhuận - 3123410253 username='svngnhuan' pass='svngnhuan123'
+3. Huỳnh Anh Nhựt - 3123410256 username='hanhut' pass='hanhut123'
+4. Nguyễn Tiến Minh - 3123410221 username='svminleo' pass='svminleo123'
