@@ -15,6 +15,19 @@ body{
     background-position: center;
     position: relative;
   }
+
+#eye{
+  position: relative;
+  right: 20px;
+}
+.error{
+  display: flex;
+  justify-content: center;
+  color: red;
+  font-size: 12px;
+  margin-top: -15px;
+  margin-bottom: -12px;
+}
 .header{
   display: flex;
   position: absolute;
@@ -60,6 +73,7 @@ body{
   font-size: 32px;
   font-weight: bold;
 }
+
 .wrapper{
     width: 420px;
     background: transparent;
@@ -109,7 +123,7 @@ body{
     display: flex;
     justify-content: space-between;
     font-size: 14.5px;
-    margin: -15px 0 15px;
+    margin: 15px 0 15px;
   }
 .remember-forgot label input{
     accent-color: #fff;

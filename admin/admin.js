@@ -15,10 +15,10 @@ document.querySelector('.form-login').addEventListener('submit',function(event){
     if (username && password) {
         const usernameValue = username.value;
         const passwordValue = password.value;
-    if((usernameValue == 'hanhut' && passwordValue == 'hanhut123')
-    ||  (usernameValue == 'svngnhuan' && passwordValue == 'svngnhuan123')
-    ||  (usernameValue == 'svnguyen' && passwordValue == 'svnguyen123') 
-    ||  (usernameValue == 'svminleo' && passwordValue == 'svminleo123'))
+    if((usernameValue === 'hanhut' && passwordValue === 'hanhut123')
+    ||  (usernameValue === 'svngnhuan' && passwordValue === 'svngnhuan123')
+    ||  (usernameValue === 'svnguyen' && passwordValue === 'svnguyen123') 
+    ||  (usernameValue === 'svminleo' && passwordValue === 'svminleo123'))
         window.location.href='../admin.html';
     else
         alert('Tên tài khoản hoặc mật khẩu không đúng');

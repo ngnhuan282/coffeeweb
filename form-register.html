@@ -6,6 +6,7 @@
   <title>Đăng ký </title>
   <link rel="stylesheet" href="css/login.css">
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
   <div class="header">
@@ -30,24 +31,29 @@
       <ion-icon name="close"></ion-icon> 
     </span>-->
     <div class="form-box register">
-      <form action="">
+      <form id="form-register">
         <h2>Lucy Coffe</h2>
         <div class="input-box">
-          <input type="text" placeholder="Tài khoản" required>
+          <input id="username" type="text" placeholder="Tài khoản" autocomplete="username">
           <i class='bx bxs-user'></i>
         </div>
+        <div style="display: none;" class="error" id="username-error">Tên đăng nhập không được để trống</div>
         <div class="input-box">
-          <input type="password" placeholder="Mật khẩu" required>
+          <input id="password" type="text" placeholder="Mật khẩu" autocomplete="current-password">
+          
           <i class='bx bxs-lock-alt' ></i>
         </div>
+        <div style="display: none;" class="error" id="password-error">Mật khẩu không được để trống</div>
         <div class="input-box">
-          <input type="text" placeholder="Số điện thoại" required>
+          <input id="numberphone" type="text" placeholder="Số điện thoại">
           <i class='bx bx-phone'></i>
         </div>
+        <div style="display: none;" class="error" id="numberphone-error">Số điện thoại không được để trống</div>
         <div class="input-box">
-          <input type="email" placeholder="Email" required>
+          <input id="email" type="email" placeholder="Email">
           <i class='bx bx-envelope' ></i>
         </div>
+        <div style="display: none;" class="error" id="email-error">Email không được để trống</div>
         <div class="remember-forgot">
           <label><input type="checkbox">Tôi đồng ý với chính sách trang web</label>
         </div>
@@ -60,7 +66,10 @@
   </div>
 
   <script src="script.js"></script>
-  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+  <script src="
+  https://cdn.jsdelivr.net/npm/uuid@11.0.2/dist/cjs-browser/index.min.js
+  "></script>
+  <!-- <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script> -->
 </body>
 </html>
