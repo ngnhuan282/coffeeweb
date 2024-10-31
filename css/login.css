@@ -85,9 +85,10 @@ body{
     margin-top: 70px;
 
   }
-.wrapper h1{
+.wrapper h2{
     font-size: 36px;
     text-align: center;
+    font-weight: 70%;
   }
 .wrapper .input-box{
     position: relative;
