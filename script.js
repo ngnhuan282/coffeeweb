@@ -6,7 +6,7 @@ const emailError = document.getElementById("email-error");
 
 const numberphoneError = document.getElementById("numberphone-error");
 
-const userLocal = JSON.parse(localStorage.getItem("user")) || [];
+const userLocal = JSON.parse(localStorage.getItem("users")) || [];
 
 function validateEmail(email) {
     return String(email)
@@ -45,21 +45,29 @@ formRegister.addEventListener("submit",function(e){
 
     }else
         emailError.style.display="none";
-    if(usernameVaule && passwordVaule && emailError && numberphoneVaule && validateEmail(emailVaule)){
+
+    const userExists = userLocal.some(user => user.username === usernameVaule);
+    if(userExists){
+        usernameError.style.display="flex";
+        usernameError.innerHTML= "Tên đăng nhập đã tồn tại"; 
+    }else{
+        usernameError.style.display= "none";
+        if(usernameVaule && passwordVaule && emailError && numberphoneVaule && validateEmail(emailVaule)){
         const user = {
-            userId: Math.ceil(Math.random * 1000000),
+            userId: Math.ceil(Math.random() * 1000000),
             username: usernameVaule,
             password: passwordVaule,
             email: emailVaule,
             numphone: 
             numberphoneVaule,
-        }
-        userLocal.push(user);
-        localStorage.setItem("users",JSON.stringify(userLocal));
-        setTimeout(function(){
+            }
+            userLocal.push(user);
+            localStorage.setItem("users",JSON.stringify(userLocal));
+            setTimeout(function(){
             window.location.href = "./form-login.html";
-        }, 1000);
-    }   
+            }, 1000);
+        }       
+    }
 });
 
 
