@@ -11,6 +11,8 @@
 </p>
 
 <b> Tài khoản admin <b/>
-<p>Tài khoản: admin</p>
-<p>Mật khẩu: 123456</p>
+<ol>
+    <li>Tài khoản: admin</li>
+    <li>Mật khẩu: 123456</li>
+</ol>
 
