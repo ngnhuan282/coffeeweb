@@ -1,8 +1,16 @@
 const PHIVANCHUYEN = 30000;
 let priceFinal = document.getElementById("checkout-cart-price-final");
+let MyBank = {
+    BankID: "MB",
+    AcountID: "0926213561",
+}
+let interval;
 // Trang thanh toan
 function thanhtoanpage(option,product) {
     // Xu ly ngay nhan hang
+    let currentUser = JSON.parse(localStorage.getItem('currentuser'));
+    console.log(currentUser);
+    document.getElementById('diachinhan').value = currentUser.address;
     let today = new Date();
     let ngaymai = new Date();
     let ngaykia = new Date();
@@ -89,50 +97,135 @@ function thanhtoanpage(option,product) {
     let tudenlayGroup = document.querySelector('#tudenlay-group');
     let chkShip = document.querySelectorAll(".chk-ship");
     
+    let totalPrice = 0;
+
     tudenlay.addEventListener('click', () => {
-        giaotannoi.classList.remove("active");
         tudenlay.classList.add("active");
+        document.getElementById('dathang').style.display = 'block';
+        giaotannoi.classList.remove("active");
         chkShip.forEach(item => {
             item.style.display = "none";
         });
         tudenlayGroup.style.display = "block";
         switch (option) {
             case 1:
+                let totalprice = getCartTotal();
                 priceFinal.innerText = vnd(getCartTotal());
+                totalPrice = totalprice;
                 break;
             case 2:
+                let total = (product.soluong * product.price);
                 priceFinal.innerText = vnd((product.soluong * product.price));
+                totalPrice = total;
                 break;
         }
-    })
+    });
 
     giaotannoi.addEventListener('click', () => {
-        tudenlay.classList.remove("active");
         giaotannoi.classList.add("active");
+        document.getElementById('dathang').style.display = 'block';
+        tudenlay.classList.remove("active");
         tudenlayGroup.style.display = "none";
         chkShip.forEach(item => {
             item.style.display = "flex";
         });
         switch (option) {
             case 1:
+                let totalprice =  getCartTotal() + PHIVANCHUYEN;
                 priceFinal.innerText = vnd(getCartTotal() + PHIVANCHUYEN);
+                totalPrice = totalprice;
                 break;
             case 2:
+                let total = (product.soluong * product.price) + PHIVANCHUYEN;
                 priceFinal.innerText = vnd((product.soluong * product.price) + PHIVANCHUYEN);
+                totalPrice = total;
                 break;
         }
-    })
-
+    });
     // Su kien khu nhan nut dat hang
-    document.querySelector(".complete-checkout-btn").onclick = () => {
-        switch (option) {
-            case 1:
-                xulyDathang();
-                break;
-            case 2:
-                xulyDathang(product);
-                break;
+    document.querySelector(".complete-checkout-btn").addEventListener('click', function(e){
+        e.preventDefault();
+        let giaoTanNoi = document.querySelector("#giaotannoi");
+        let tuDenLay = document.querySelector("#tudenlay");
+        let tenNguoiNhan = document.getElementById('tennguoinhan').value;
+        let diaChiNhan = document.getElementById('diachinhan').value;
+        let sdtNhan = document.getElementById('sdtnhan').value;
+        let radios = document.querySelectorAll('.radio');
+        let isChecked = false;
+        const error = document.getElementById('error');
+        radios.forEach(radio => {
+            if(radio.checked)
+                isChecked = true;
+        });
+        if((tenNguoiNhan == "" || diaChiNhan == "" || sdtNhan =="" || isChecked == false) && giaoTanNoi.classList.contains('active') == true){
+            error.innerHTML = `Vui lòng nhập đầy đủ thông tin`;
+            document.getElementById('thanhtoan').style.display = 'none';
+            isChecked = false;
         }
+        else if((tenNguoiNhan == "" || sdtNhan =="" || isChecked == false) && tuDenLay.classList.contains('active') == true){
+            error.innerHTML = `Vui lòng nhập đầy đủ thông tin`;
+            document.getElementById('thanhtoan').style.display = 'none';
+            isChecked = false;
+        }
+        else{
+            error.innerHTML = "";
+            document.getElementById('thanhtoan').style.display = 'block';
+            document.getElementById('cod').addEventListener('click', function(e){
+                e.preventDefault();
+                switch (option) {
+                    case 1:
+                        xulyDathang();
+                        break;
+                    case 2:
+                        xulyDathang(product);
+                        break;
+                }
+            });
+            document.getElementById('banking').addEventListener('click', function(e){
+                e.preventDefault();
+                console.log(totalPrice);
+                const bankingpage = document.querySelector('.banking-page');
+                bankingpage.classList.add('active');
+                checkoutpage.classList.remove('active');
+                const renderOrderContent = document.querySelector('.banking-content');
+                const lastContent = `LucyBanking${Math.ceil(Math.random()*100000000)}`;
+                let ordercontentHTML = "";
+                    ordercontentHTML += `
+                    <img src="https://img.vietqr.io/image/MB-0926213561-qr_only.png?amount=${totalPrice}&addInfo=${lastContent}">
+                    <p>Nội dung chuyển khoản: ${lastContent}</p>
+                    <p>Số tiền: ${vnd(totalPrice)} </p>`;
+                    renderOrderContent.innerHTML = ordercontentHTML;
+                    setTimeout(() => {
+                        interval = setInterval(() => {
+                            checkPaid(totalPrice, lastContent, option, product);
+                        }, 3000);
+                    }, 20000);
+            });
+        }
+    });
+} 
+
+async function checkPaid(totalPrice, lastContent, option, product) {
+    try {
+
+        const reponse = await fetch("https://script.google.com/macros/s/AKfycby09GbKlnV30fo0OMUJnXx6T8I1sJgcG31CuZsNoXGmkTWAzU8H9T0HLduPluh_18yCBw/exec");
+        const data = await reponse.json();
+        const lastPaid = data.data[data.data.length - 1];
+        if(lastPaid["Giá trị"] >= totalPrice && lastPaid["Mô tả"].includes(lastContent)){
+            clearInterval(interval);
+            alert("Đã đặt hàng thành công !!!");
+            switch(option) {
+                case 1:
+                    xulyDathang();
+                case 2:
+                    xulyDathang(product);
+            }
+        }
+        else
+            console.log("Giao dịch không thành công");
+    }
+    catch{
+        console.error("loiii");
     }
 }
 
@@ -168,9 +261,10 @@ function showProductBuyNow(product) {
 //Open Page Checkout
 let nutthanhtoan = document.querySelector('.thanh-toan')
 let checkoutpage = document.querySelector('.checkout-page');
+let bankingpage = document.querySelector('banking-page');
 nutthanhtoan.addEventListener('click', () => {
     checkoutpage.classList.add('active');
-    thanhtoanpage(1);
+    thanhtoanpage(1);   
     closeCart();
     body.style.overflow = "hidden"
 })
@@ -207,6 +301,8 @@ function closecheckout() {
 
 // Thong tin cac don hang da mua - Xu ly khi nhan nut dat hang
 function xulyDathang(product) {
+    let currentUser = JSON.parse(localStorage.getItem('currentuser'));
+    document.getElementById('diachinhan').value = currentUser.address;
     let diachinhan = "";
     let hinhthucgiao = "";
     let thoigiangiao = "";
@@ -214,10 +310,9 @@ function xulyDathang(product) {
     let tudenlay = document.querySelector("#tudenlay");
     let giaongay = document.querySelector("#giaongay");
     let giaovaogio = document.querySelector("#deliverytime");
-    let currentUser = JSON.parse(localStorage.getItem('currentuser'));
     // Hinh thuc giao & Dia chi nhan hang
     if(giaotannoi.classList.contains("active")) {
-        diachinhan = document.querySelector("#diachinhan").value;
+        document.querySelector("#diachinhan").value;
         hinhthucgiao = giaotannoi.innerText;
     }
     if(tudenlay.classList.contains("active")){
