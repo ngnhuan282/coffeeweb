@@ -12,7 +12,6 @@
   <meta name="description" content="" />
   <meta name="author" content="" />
   <link rel="shortcut icon" href="images/logo.png" type="">
-
   <title> Lucy </title>
 
   <!-- bootstrap core css -->
@@ -29,7 +28,8 @@
   <link href="css/style.css" rel="stylesheet" />
   <!-- responsive style -->
   <link href="css/responsive.css" rel="stylesheet" />
-
+  <!-- Toast message style-->
+  <link rel="stylesheet" href="css/toast-message.css">
 </head>
 
 <body>
@@ -77,7 +77,7 @@
               </div>
               <div class="header-middle-right">
                   <ul class="header-middle-right-list">
-                      <li class="header-middle-right-item dnone open" onclick="openSearchMb()">
+                      <!-- <li class="header-middle-right-item dnone open" onclick="openSearchMb()">
                           <div class="cart-icon-menu">
                               <i class="fa-light fa-magnifying-glass"></i>
                           </div>
@@ -86,7 +86,7 @@
                           <div class="cart-icon-menu">
                               <i class="fa-light fa-circle-xmark"></i>
                           </div>
-                      </li>
+                      </li> -->
                       <li class="header-middle-right-item dropdown open">
                           <i class="fa fa-user" aria-hidden="true"></i>
                           <div class="auth-container">
@@ -315,8 +315,14 @@
                             <span class="form-message-phone form-message"></span>
                         </div>
                         <div class="form-group">
+                            <label for="address" class="form-label">Địa chỉ</label>
+                            <input id="address" name="address" type="text" placeholder="Nhập địa chỉ"
+                                class="form-control">
+                            <span class="form-message-address form-message"></span>
+                        </div>
+                        <div class="form-group">
                             <label for="password" class="form-label">Mật khẩu</label>
-                            <input id="password" name="password" type="password" placeholder="Nhập mật khẩu"
+                            <input  id="password" name="password" type="password" placeholder="Nhập mật khẩu"
                                 class="form-control">
                             <span class="form-message-password form-message"></span>
                         </div>
@@ -415,7 +421,7 @@
                         <div class="content-group">
                             <p class="checkout-content-label">Hình thức giao nhận</p>
                             <div class="checkout-type-order">
-                                <button class="type-order-btn active" id="giaotannoi">
+                                <button class="type-order-btn" id="giaotannoi">
                                     <i class="fa-duotone fa-moped"
                                         style="--fa-secondary-opacity: 1.0; --fa-primary-color: dodgerblue; --fa-secondary-color: #ffb100;"></i>
                                     Giao tận nơi
@@ -517,7 +523,7 @@
                     </div>
                 </div>
             </div>
-            <div class="checkout-col-right">
+            <div style="display: none;" id="dathang" class="checkout-col-right">
                 <p class="checkout-content-label">Đơn hàng</p>
                 <div class="bill-total" id="list-order-checkout">
                 </div>
@@ -536,64 +542,74 @@
                         <div class="price-final" id="checkout-cart-price-final">0</div>
                     </div>
                 </div>
+                <div id="error"></div>
                 <button class="complete-checkout-btn">Đặt hàng</button>
+            </div>
+            <div class="checkout-col-right" id="thanhtoan" style="display: none;">
+                <p style="font-weight: bold;">Vui lòng chọn phương thức thanh toán</p>
+                <div class="select-pay">
+                    <div class="pay-method"> 
+                        <button  id="cod">Trả tiền sau khi nhận hàng</button>
+                    </div>
+                    <div class="pay-method">
+                        <button  id="banking">Chuyển khoản</button>
+                    </div>
+                </div>
             </div>
         </main>
     </div>
-  <!-- client section -->
-
-  <!-- <section class="client_section layout_padding-bottom">
-    <div class="container">
-      <div class="heading_container heading_center psudo_white_primary mb_45">
-        <h2>
-          Chuyện Nhà Lucy
-        </h2>
-      </div>
-      <div class="carousel-wrap row ">
-        <div class="owl-carousel client_owl-carousel">
-          <div class="item">
-            <div class="box">
-              <div class="detail-box">
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam
-                </p>
-                <h6>
-                  Moana Michell
-                </h6>
-                <p>
-                  magna aliqua
-                </p>
-              </div>
-              <div class="img-box">
-                <img src="images/client1.jpg" alt="" class="box-img">
-              </div>
+    <!-- Giao diện thanh toán chuyển khoản-->
+    <div class="banking-page">
+        <header class="header-baking">
+            <div class="logo">
+                <h3>Lucy Banking</h3>           
             </div>
-          </div>
-          <div class="item">
-            <div class="box">
-              <div class="detail-box">
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam
-                </p>
-                <h6>
-                  Mike Hamell
-                </h6>
-                <p>
-                  magna aliqua
-                </p>
-              </div>
-              <div class="img-box">
-                <img src="images/client2.jpg" alt="" class="box-img">
-              </div>
+            <div class="icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><rect x="1" y="4" width="30" height="24" rx="4" ry="4" fill="#071b65"></rect><path d="M5.101,4h-.101c-1.981,0-3.615,1.444-3.933,3.334L26.899,28h.101c1.981,0,3.615-1.444,3.933-3.334L5.101,4Z" fill="#fff"></path><path d="M22.25,19h-2.5l9.934,7.947c.387-.353,.704-.777,.929-1.257l-8.363-6.691Z" fill="#b92932"></path><path d="M1.387,6.309l8.363,6.691h2.5L2.316,5.053c-.387,.353-.704,.777-.929,1.257Z" fill="#b92932"></path><path d="M5,28h.101L30.933,7.334c-.318-1.891-1.952-3.334-3.933-3.334h-.101L1.067,24.666c.318,1.891,1.952,3.334,3.933,3.334Z" fill="#fff"></path><rect x="13" y="4" width="6" height="24" fill="#fff"></rect><rect x="1" y="13" width="30" height="6" fill="#fff"></rect><rect x="14" y="4" width="4" height="24" fill="#b92932"></rect><rect x="14" y="1" width="4" height="30" transform="translate(32) rotate(90)" fill="#b92932"></rect><path d="M28.222,4.21l-9.222,7.376v1.414h.75l9.943-7.94c-.419-.384-.918-.671-1.471-.85Z" fill="#b92932"></path><path d="M2.328,26.957c.414,.374,.904,.656,1.447,.832l9.225-7.38v-1.408h-.75L2.328,26.957Z" fill="#b92932"></path><path d="M27,4H5c-2.209,0-4,1.791-4,4V24c0,2.209,1.791,4,4,4H27c2.209,0,4-1.791,4-4V8c0-2.209-1.791-4-4-4Zm3,20c0,1.654-1.346,3-3,3H5c-1.654,0-3-1.346-3-3V8c0-1.654,1.346-3,3-3H27c1.654,0,3,1.346,3,3V24Z" opacity=".15"></path><path d="M27,5H5c-1.657,0-3,1.343-3,3v1c0-1.657,1.343-3,3-3H27c1.657,0,3,1.343,3,3v-1c0-1.657-1.343-3-3-3Z" fill="#fff" opacity=".2"></path></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><rect x="1" y="4" width="30" height="24" rx="4" ry="4" fill="#c93728"></rect><path d="M27,4H5c-2.209,0-4,1.791-4,4V24c0,2.209,1.791,4,4,4H27c2.209,0,4-1.791,4-4V8c0-2.209-1.791-4-4-4Zm3,20c0,1.654-1.346,3-3,3H5c-1.654,0-3-1.346-3-3V8c0-1.654,1.346-3,3-3H27c1.654,0,3,1.346,3,3V24Z" opacity=".15"></path><path d="M27,5H5c-1.657,0-3,1.343-3,3v1c0-1.657,1.343-3,3-3H27c1.657,0,3,1.343,3,3v-1c0-1.657-1.343-3-3-3Z" fill="#fff" opacity=".2"></path><path fill="#ff5" d="M18.008 16.366L21.257 14.006 17.241 14.006 16 10.186 14.759 14.006 10.743 14.006 13.992 16.366 12.751 20.186 16 17.825 19.249 20.186 18.008 16.366z"></path></svg>
             </div>
-          </div>
+        </header>
+        <div class="box-banking">
+            <header style="text-align: center;">
+                <p>
+                    Quý khách vui lòng không tắt trình duyệt cho đến khi nhận được kết quả giao dịch trên webside. Xin cảm ơn!
+                </p>
+            </header>
+            <div class="thanhtoan">
+                <div class="qr-code">
+                    <h3> Ứng dụng mobile quét mã QR</h3>
+                    <div class="banking-content">
+                        
+                    </div>
+                </div>
+                <div class="form-banking">
+                    <h3> Thanh toán qua Ngân hàng </h3>
+                    <form class="atm-form" action="">
+                        <div class="input-form">
+                            <i class="fa-brands fa-cc-mastercard"></i>
+                            <input type="text" placeholder="Nhập số thẻ">
+                        </div>
+                        <div class="input-form">
+                            <i class="fa-regular fa-calendar"></i>
+                            <input type="text" placeholder="01/12">
+                        </div>
+                        <p>Ngày phát hành</p>
+                        <div class="input-form">
+                            <i class="fa-regular fa-user"></i>
+                            <input type="text" placeholder="DFGDFG">
+                        </div>
+                        <p>Tôi đồng ý với điều khoản sử dụng dịch vụ <input type="checkbox"> </p>
+                        <button class="xacthuc">XÁC THỰC</button>
+                        <div class="divider">
+                            <p>Hoặc</p>
+                        </div>
+                        <button class="huy">HỦY</button>
+                    </form>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </section> -->
-
-  <!-- end client section -->
-
+    <div id="toast"></div>
   <!-- footer section -->
   <footer class="footer_section">
     <div class="container">
@@ -678,9 +694,9 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js"></script>
   <!-- custom js -->
   <script src="js/custom.js"></script>
-  <!-- Google Map -->
+  <!-- Google Map
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap">
-  </script>
+  </script> -->
   <!-- End Google Map -->
    <script src="./js/main.js"></script>
    <script src="./js/admin.js"></script>
