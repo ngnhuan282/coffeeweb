@@ -48,14 +48,21 @@ function decreasingNumber(e) {
 
 //Xem chi tiet san pham
 function detailProduct(index) {
-    let modal = document.querySelector('.modal.product-detail');
-    let products = JSON.parse(localStorage.getItem('products'));
-    event.preventDefault();
-    let infoProduct = products.find(sp => {
-        return sp.id === index;
-    })
-    let modalHtml = `<div class="modal-header">
-    <img class="product-image" src="${infoProduct.img}" alt="">
+
+
+    // Đảm bảo lấy đúng modal
+let modal = document.querySelector('.modal.product-detail');
+
+// Lấy dữ liệu sản phẩm từ localStorage
+let products = JSON.parse(localStorage.getItem('products'));
+
+// Tìm sản phẩm dựa vào id
+let infoProduct = products.find(sp => sp.id === index);
+
+// Khởi tạo modalHtml với thông tin sản phẩm
+let modalHtml = `
+    <div class="modal-header">
+        <img class="product-image" src="${infoProduct.img}" alt="">
     </div>
     <div class="modal-body">
         <h2 class="product-title">${infoProduct.title}</h2>
@@ -70,25 +77,32 @@ function detailProduct(index) {
             </div>
         </div>
         <p class="product-description">${infoProduct.desc}</p>
-    </div>
-    <div class="notebox">
+        <div class="notebox">
             <p class="notebox-title">Ghi chú</p>
             <textarea class="text-note" id="popup-detail-note" placeholder="Nhập thông tin cần lưu ý..."></textarea>
+        </div>
+        <div class="modal-footer">
+            <div class="price-total">
+                <span class="thanhtien">Thành tiền</span>
+                <span id="total-price">${vnd(infoProduct.price)}</span>
+            </div>
+            <div class="modal-footer-control">
+                <button class="button-dathangngay" data-product="${infoProduct.id}">Đặt hàng ngay</button>
+                <button class="button-dat" id="add-cart" onclick="animationCart()">
+                    <i class="fa-light fa-basket-shopping"></i>
+                </button>
+            </div>
+        </div>
     </div>
-    <div class="modal-footer">
-        <div class="price-total">
-            <span class="thanhtien">Thành tiền</span>
-            <span class="price">${vnd(infoProduct.price)}</span>
-        </div>
-        <div class="modal-footer-control">
-            <button class="button-dathangngay" data-product="${infoProduct.id}">Đặt hàng ngay</button>
-            <button class="button-dat" id="add-cart" onclick="animationCart()"><i class="fa-light fa-basket-shopping"></i></button>
-        </div>
-    </div>`;
-    document.querySelector('#product-detail-content').innerHTML = modalHtml;
+`;
+
+// Hiển thị modal
+document.querySelector("#product-detail-content").innerHTML = modalHtml;
+
     modal.classList.add('open');
     body.style.overflow = "hidden";
-    //Cap nhat gia tien khi tang so luong san pham
+
+       //Cap nhat gia tien khi tang so luong san pham
     let tgbtn = document.querySelectorAll('.is-form');
     let qty = document.querySelector('.product-control .input-qty');
     let priceText = document.querySelector('.price');
@@ -369,6 +383,7 @@ signupButton.addEventListener('click', () => {
     event.preventDefault();
     let fullNameUser = document.getElementById('fullname').value;
     let phoneUser = document.getElementById('phone').value;
+    let addressUser = document.getElementById('address').value;
     let passwordUser = document.getElementById('password').value;
     let passwordConfirmation = document.getElementById('password_confirmation').value;
     let checkSignup = document.getElementById('checkbox-signup').checked;
@@ -381,6 +396,10 @@ signupButton.addEventListener('click', () => {
         document.querySelector('.form-message-name').innerHTML = 'Vui lòng nhập họ và tên lớn hơn 3 kí tự';
     } else {
         document.querySelector('.form-message-name').innerHTML = '';
+    }
+    if(addressUser.length == 0) {
+        document.getElementById('address').value = '';
+        document.querySelector('.form-message-address').innerHTML = 'Vui lòng nhập địa chỉ';
     }
     if (phoneUser.length == 0) {
         document.querySelector('.form-message-phone').innerHTML = 'Vui lòng nhập vào số điện thoại';
@@ -418,7 +437,7 @@ signupButton.addEventListener('click', () => {
                 fullname: fullNameUser,
                 phone: phoneUser,
                 password: passwordUser,
-                address: '',
+                address: addressUser,
                 email: '',
                 status: 1,
                 join: new Date(),
