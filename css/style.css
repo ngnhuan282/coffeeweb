@@ -2270,7 +2270,7 @@ button.thanh-toan.disabled {
   overflow-y: auto;
   transform: translateX(100%);
   transition: all 0.5s ease;
-  padding: 0 50px;
+  padding: 0 0;
   background-color: #f5f5f5;
 }
 
@@ -2326,12 +2326,12 @@ button.thanh-toan.disabled {
 }
 .atm-form button{
     margin: 10px 0;
-    padding: 8px 0;
+    padding: 10px 0;
     text-align: center;
     outline: none;
     width: 100%;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
     transition: 0.3s ease-in-out;
 }
@@ -2339,7 +2339,7 @@ button.thanh-toan.disabled {
     background-color: rgb(141, 138, 135);
 }
 .xacthuc{
-    background-color: blueviolet;
+    background-color: var(--orange);
 }
 .huy{
     background-color: #a9a9a9;
